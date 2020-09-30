@@ -24,8 +24,32 @@ function log(message) {
       }
     });
   }
+
+
   const address = "0xc4c9994c7b1f767050b94dccf975d0b4096580f6";
-  const abi = [{"constant":false,"inputs":[{"name":"name","type":"string"},{"name":"description","type":"string"},{"name":"uuid","type":"string"}],"name":"createAsset","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"to","type":"address"},{"name":"uuid","type":"string"}],"name":"transferAsset","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"anonymous":false,"inputs":[{"indexed":false,"name":"account","type":"address"},{"indexed":false,"name":"uuid","type":"string"},{"indexed":false,"name":"manufacturer","type":"address"}],"name":"AssetCreate","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"account","type":"address"},{"indexed":false,"name":"uuid","type":"string"},{"indexed":false,"name":"message","type":"string"}],"name":"RejectCreate","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"from","type":"address"},{"indexed":false,"name":"to","type":"address"},{"indexed":false,"name":"uuid","type":"string"}],"name":"AssetTransfer","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"from","type":"address"},{"indexed":false,"name":"to","type":"address"},{"indexed":false,"name":"uuid","type":"string"},{"indexed":false,"name":"message","type":"string"}],"name":"RejectTransfer","type":"event"},{"constant":true,"inputs":[{"name":"uuid","type":"string"}],"name":"assetDescription","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"uuid","type":"string"}],"name":"assetLocation","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"uuid","type":"string"}],"name":"assetManufacturer","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"uuid","type":"string"}],"name":"assetName","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"}];
+  const abi = [{"constant":false,"inputs":
+  [{"name":"name","type":"string"},{"name":"description","type":"string"},
+  {"name":"uuid","type":"string"}],"name":"createAsset","outputs":
+  [],"payable":false,"stateMutability":"nonpayable","type":"function"}
+  ,{"constant":false,"inputs":[{"name":"to","type":"address"},
+  {"name":"uuid","type":"string"}],"name":"transferAsset","outputs":
+  [],"payable":false,"stateMutability":"nonpayable","type":"function"}
+  ,{"anonymous":false,"inputs":[{"indexed":false,"name":"account","type":"address"}
+  ,{"indexed":false,"name":"uuid","type":"string"},{"indexed":false,"name":"manufacturer","type":"address"}
+],"name":"AssetCreate","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"account","type":"address"}
+,{"indexed":false,"name":"uuid","type":"string"},{"indexed":false,"name":"message","type":"string"}
+],"name":"RejectCreate","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"from","type":"address"},
+{"indexed":false,"name":"to","type":"address"},{"indexed":false,"name":"uuid","type":"string"}],"name":"AssetTransfer","type":"event"},
+{"anonymous":false,"inputs":[{"indexed":false,"name":"from","type":"address"},{"indexed":false,"name":"to","type":"address"},
+{"indexed":false,"name":"uuid","type":"string"},{"indexed":false,"name":"message","type":"string"}],"name":"RejectTransfer","type":"event"},
+{"constant":true,"inputs":[{"name":"uuid","type":"string"}],"name":"assetDescription","outputs":[{"name":"","type":"string"}]
+,"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"uuid","type":"string"}]
+,"name":"assetLocation","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"}
+,{"constant":true,"inputs":[{"name":"uuid","type":"string"}],"name":"assetManufacturer","outputs":[{"name":"","type":"address"}]
+,"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"uuid","type":"string"}],
+"name":"assetName","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"}];
+
+
   $(function () {
     var supplychain;
     $('#trackAsset').click(function (e) {
@@ -38,6 +62,8 @@ function log(message) {
         document.getElementById("name").innerHTML = result1;
       });
     });
+
+
     $('#trackAsset').click(function (e) {
       e.preventDefault();
             supplychain.assetDescription.call(document.getElementById("trackUuid").value, function (err, result2) {
@@ -68,6 +94,8 @@ function log(message) {
         document.getElementById("location").innerHTML = result4;
       });
     });
+
+
     $('#createAsset').click(function (e) {
       e.preventDefault();
       if(web3.eth.defaultAccount === undefined) {
@@ -75,7 +103,9 @@ function log(message) {
                      "please unlock it first and reload the page.");
       }
       log("Transaction On its Way...");
-      supplychain.createAsset.sendTransaction(document.getElementById("assetName").value,document.getElementById("assetDescription").value,document.getElementById("assetUuid").value,function (err, hash) {
+      supplychain.createAsset.sendTransaction(document.getElementById("assetName").
+      value,document.getElementById("assetDescription").
+      value,document.getElementById("assetUuid").value,function (err, hash) {
         if (err) {
           return error(err);
         }
@@ -84,6 +114,8 @@ function log(message) {
         });
       });
     });
+
+
     $('#transferAsset').click(function (e) {
       e.preventDefault();
       if(web3.eth.defaultAccount === undefined) {
@@ -91,7 +123,8 @@ function log(message) {
                      "please unlock it first and reload the page.");
       }
       log("Transaction On its Way...");
-      supplychain.transferAsset.sendTransaction(document.getElementById("address").value,document.getElementById("Uuid").value,function (err, hash) {
+      supplychain.transferAsset.sendTransaction(document.getElementById("address").
+      value,document.getElementById("Uuid").value,function (err, hash) {
         if (err) {
           return error(err);
         }
@@ -100,6 +133,9 @@ function log(message) {
         });
       });
     });
+
+
+
     if (typeof(web3) === "undefined") {
       error("Unable to find web3. " +
             "Please run MetaMask (or something else that injects web3).");
